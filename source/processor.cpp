@@ -23,6 +23,13 @@ bool processor(SDL_Event event) {
 
     // Display stars.
     case SDLK_SPACE:
+      /*
+        Доделать:
+        1. Адекватное отображение сетки после анимации.
+        2. Вылеты после 3х циклов.
+        3. Артефакты после 1го цикла
+        4. Улыбнуться!)
+      */
       showMain();       // show main surf.
       checkFreeSpace(); // check free space in field.
       randomColors();   // create list random colors.
