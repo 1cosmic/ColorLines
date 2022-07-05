@@ -1,5 +1,7 @@
 // Processor of key press, event.
 
+#include "headers/gui.hpp"
+#include "headers/logic.hpp"
 #include <SDL2/SDL.h>
 
 bool processor(SDL_Event event) {
@@ -18,6 +20,14 @@ bool processor(SDL_Event event) {
     // Close game by key: SPACE.
     case SDLK_q:
       return false;
+
+    // Display stars.
+    case SDLK_SPACE:
+      showMain();       // show main surf.
+      checkFreeSpace(); // check free space in field.
+      randomColors();   // create list random colors.
+      randomPutStar();  // put color from random color-list.
+      display_stars();  // display all changes.
     }
 
   default:

@@ -1,8 +1,9 @@
-#include "headers/gui_loader.hpp"
 #include "headers/gui_drawing.hpp"
+#include "headers/gui_loader.hpp"
 
 #include <SDL2/SDL.h>
 
+#include <SDL2/SDL_render.h>
 #include <exception>
 #include <iostream>
 #include <vector>
@@ -16,12 +17,14 @@ SDL_Window *window = NULL;       // Main window of the window window
 SDL_Renderer *render = NULL;     // Renderer of the drawing.
 SDL_Surface *mainSurface = NULL; // Surface contained by the window.
 
-SDL_Rect Rect_backbround;        // rect of background.
-SDL_Rect Rect_field;             // rect of field.
-SDL_Rect Rect_cells[9][9];       // rect of cells (in grid).
+SDL_Rect Rect_backbround;  // rect of background.
+SDL_Rect Rect_field;       // rect of field.
+SDL_Rect Rect_cells[9][9]; // rect of cells (in grid).
+
+extern int field[9][9]; // from logic.cpp.
 
 // ============================================================
-int center[2] = {1280 / 2, 720 / 2};    // create XY of center screen.
+int center[2] = {1280 / 2, 720 / 2}; // create XY of center screen.
 
 pair<int, int> centerObj(int w, int h) {
   // Return center of object.
@@ -29,15 +32,12 @@ pair<int, int> centerObj(int w, int h) {
   return {center[0] - w / 2, center[1] - w / 2};
 }
 
-
 pair<int, int> coordStar(int column, int cell) {
   // Return coords of start pos. star.
 
   int x, y;
-
 }
 // ============================================================
-
 
 bool initGame(void) {
   // Initialization chesks.
@@ -88,10 +88,15 @@ bool initGame(void) {
       Rect_cells[column][cell].h = 60;
       Rect_cells[column][cell].w = 60;
     }
+  }
+
+  //====================
+  // Initialization star images from system.
+  //====================
+
+  initTexture(render); // load & convert to texture.
+
   return true;
- }
-  //====================
-  //====================
   //====================
 }
 
@@ -119,11 +124,8 @@ void destroyGame(void) {
   }
 }
 
-bool startGame(void) {
+bool showMain(void) {
   // Set up default option of main screen & window. Show is its.
-
-  // Initialization star images from system.
-  initTexture(render); // load & convert to texture.
 
   // Clear & set main options.
   SDL_RenderClear(render); // clear render (nahui?..)
@@ -136,7 +138,25 @@ bool startGame(void) {
   draw_grid(60); // draw grid.
 
   // Display all it.
-  SDL_RenderPresent(render);
+  // SDL_RenderPresent(render);
 
   return true;
+}
+
+void display_stars() {
+  // Display all changes from RAM (logic.cpp).
+
+  int x, y; // column & cell of field.
+  int color;
+
+  // Run for all cells.
+  for (y = 0; y < 9; ++y)
+    for (x = 0; x < 9; ++x)
+      if (field[y][x]) {
+
+        color = field[y][x];
+        SDL_RenderCopy(render, get_star(color), NULL, &Rect_cells[y][x]);
+      }
+
+  SDL_RenderPresent(render);
 }

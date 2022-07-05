@@ -1,6 +1,6 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 #include <time.h>
 
@@ -10,8 +10,7 @@ int field[9][9];           // main field.
 vector<int> freeSpace[9];  // field of free space.
 vector<int[4]> multiStars; // safe y,x, color, count of multiplie stars.
 
-int colors[3];        // next color list.
-
+int colors[3]; // next color list.
 
 void destroyLogic() {
 
@@ -73,7 +72,7 @@ int checkFreeSpace(void) {
     return 1;
 }
 
-  void randomPutStar(void) {
+void randomPutStar(void) {
   // Select randomize line & pos (in line) & put in this color.
 
   vector<int> freeLines;
@@ -133,7 +132,6 @@ int checkFreeSpace(void) {
 
 int schMultiStars(int count) {
   // Search of multiplie stars in one line.
-
 
   // TO-DO: WRITE THIS FUNC. FOR SEARCH MULTIPLIE STAR.
 

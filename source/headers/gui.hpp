@@ -10,6 +10,9 @@ bool initGame(void);
 void destroyGame(void);
 
 // Sugar. Run game & show it.
-bool startGame(void);
+bool showMain(void);
+
+// Display stars & his changes.
+void display_stars();
 
 #endif // !_H_GUI

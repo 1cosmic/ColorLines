@@ -1,4 +1,5 @@
 #include "headers/gui.hpp"
+#include "headers/logic.hpp"
 #include "headers/processor.hpp"
 
 #include <SDL2/SDL.h>
@@ -17,10 +18,11 @@ int main() {
 
   // Main func. block.
   initGame();
+  initField();
 
-  if(startGame())
+  if (showMain())
     cout << "Show window..." << endl;
-  //
+  //==============================
 
   // Main circle.
   while (run) {
@@ -29,7 +31,8 @@ int main() {
     while (SDL_PollEvent(&event) != 0) {
       run = processor(event);
 
-      if (!run) break;
+      if (!run)
+        break;
     }
 
     // Frame Rate controls.
@@ -39,7 +42,8 @@ int main() {
     _FPS_Timer = SDL_GetTicks();
   }
 
-  destroyGame();
+  destroyGame(); // destroy SDL object.
+  destroyLogic();  // destroy dynamic object (logic.cpp).
 
   return 0;
 }
