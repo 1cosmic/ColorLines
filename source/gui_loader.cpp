@@ -27,7 +27,7 @@ SDL_Texture *get_bgd() {
 }
 //
 SDL_Texture *get_star(int ID) {
-  return tx_star[ID];
+  return tx_star[ID -1];
 }
 //////////////////
 

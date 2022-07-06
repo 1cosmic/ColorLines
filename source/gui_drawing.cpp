@@ -50,14 +50,16 @@ void draw_grid(int indent) {
 
       // Draw vertical line.
       SDL_RenderDrawLine(render, start_pos.first + (indent * line),
-                         start_pos.second, x + (indent * line), y + (indent * line));
+                         start_pos.second, x + (indent * line), y + (indent * 9));
 
       // Draw horisontal line.
       SDL_RenderDrawLine(render, start_pos.first,
-                         start_pos.second + (indent * line), x + (indent * line),
+                         start_pos.second + (indent * line), x + (indent * 9),
                          y + (indent * line));
     }
 
-    SDL_RenderPresent(render);
   }
+
+  // Final drawing.
+  SDL_RenderPresent(render);
 }
