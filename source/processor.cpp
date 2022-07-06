@@ -16,6 +16,13 @@ bool processor(SDL_Event event) {
   case SDL_QUIT:
     return false;
 
+  case SDL_MOUSEMOTION:
+      int x, y;
+      SDL_GetMouseState(&x, &y);
+
+      cout << "Mouse motion. X/Y: " << x << " / " << y << endl;
+      return true;
+
   // If key was pressed:
   case SDL_KEYDOWN:
     switch (event.key.keysym.sym) {
