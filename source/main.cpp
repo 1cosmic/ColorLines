@@ -42,8 +42,8 @@ int main() {
     _FPS_Timer = SDL_GetTicks();
   }
 
-  destroyGame(); // destroy SDL object.
-  destroyLogic();  // destroy dynamic object (logic.cpp).
+  destroyGame();  // destroy SDL object.
+  destroyLogic(); // destroy dynamic object (logic.cpp).
 
   return 0;
 }
