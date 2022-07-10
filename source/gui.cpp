@@ -32,11 +32,27 @@ pair<int, int> centerObj(int w, int h) {
   return {center[0] - w / 2, center[1] - w / 2};
 }
 
-pair<int, int> coordStar(int column, int cell) {
+int *idStarFromCoords(int coordX, int coordY) {
   // Return coords of start pos. star.
 
-  int x, y;
+  int string, cell;
+
+  if ((coordX >= Rect_field.x) && (coordX <= Rect_field.x + Rect_field.w) &&
+      (coordY >= Rect_field.y) && (coordY <= Rect_field.y + Rect_field.h)) {
+
+    string = (coordY - Rect_field.y) / 60;
+    cell = (coordX - Rect_field.x) / 60;
+    cout << "String / cell: " << string << " / " << cell << endl;
+
+    return &field[string][cell];
+    // return nullptr;
+
+  } else {
+    cout << "Mouse point not in field." << endl;
+    return nullptr;
+  }
 }
+
 // ============================================================
 
 bool initGame(void) {
@@ -72,8 +88,8 @@ bool initGame(void) {
   Rect_backbround.h = 720;
 
   // Init field rect.
-  Rect_field.x = centerObj(9 * 60, 9 * 50).first;
-  Rect_field.y = centerObj(9 * 60, 9 * 50).second;
+  Rect_field.x = centerObj(9 * 60, 9 * 60).first;
+  Rect_field.y = centerObj(9 * 60, 9 * 60).second;
   Rect_field.w = 9 * 60;
   Rect_field.h = 9 * 60;
 

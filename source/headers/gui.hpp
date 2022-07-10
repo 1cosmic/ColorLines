@@ -15,4 +15,6 @@ bool showMain(void);
 // Display stars & his changes.
 void display_stars();
 
+// Return star from click of mouse.
+int *idStarFromCoords(int coordX, int coordY);
 #endif // !_H_GUI
