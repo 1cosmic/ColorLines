@@ -53,6 +53,11 @@ int *idStarFromCoords(int coordX, int coordY) {
   }
 }
 
+void getXY(int coordX, int coordY) {
+
+
+}
+
 // ============================================================
 
 bool initGame(void) {

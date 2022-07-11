@@ -11,7 +11,7 @@ using namespace std;
 bool processor(SDL_Event event) {
   // Processor event.
 
-  int x, y; // for mouse detection.
+  int x, y;     // for mouse detection.
   int *curStar; // current selected star.
 
   switch (event.type) {
@@ -47,13 +47,6 @@ bool processor(SDL_Event event) {
 
     // Display stars.
     case SDLK_SPACE:
-      /*
-        Доделать:
-        +++ 1. Адекватное отображение сетки после анимации.
-        +++ 2. Вылеты после 3х циклов.
-        3. Артефакты после 1го цикла
-        +++ 4. Улыбнуться!)
-      */
       showMain(); // show main surf.
                   // showMain();       // BUG FIX: clear artefacts.
 

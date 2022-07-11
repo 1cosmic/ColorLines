@@ -141,18 +141,59 @@ int schMultiStars(int count) {
   int lastStar; // last color of star (for "if").
 }
 
-void printField(void) {
-  // print field in terminal-read-mode.
 
-  int line, cell;
-
-  for (line = 0; line < 9; ++line) {
-
-    printf("Line %i:", line);
-
-    for (cell = 0; cell < 9; ++cell)
-      cout << field[line][cell] << " ";
-
-    cout << endl;
-  }
+void moveStar(int *star, int *place) {
+  *place = *star;
+  *star = 0;
 }
+
+bool isFreeWayReplace(int starX, int starY, int placeX, int placeY) {
+  // Return true & move star in target place if way is free.
+
+  if (starX == placeX || starY == placeY) {
+      // main algorythm.
+
+      /* Пожертвовав принципом DRY!
+         Функция проверяет, свободны ли ячейки на пути от выбранной звезды до цели.
+         Алгоритм прост: увеличить или уменить на единицу координату и проверить,
+         свободна ли ячейка.
+         Много Ифов, скажется ли на скорости?
+      */
+      while (starX != placeX && starY != placeY) {
+          if (starX > placeX)
+            starX--;
+          else if (starX < placeX)
+            starX++;
+
+          if (starY > placeY)
+            starY--;
+          else if (starY < placeY)
+            starY++;
+
+          if (field[starX][starY])
+            return false;
+        }
+
+      return true;
+
+    } else {
+      return false;
+    }
+}
+
+
+// void printField(void) {
+  // // print field in terminal-read-mode.
+
+  // int line, cell;
+
+  // for (line = 0; line < 9; ++line) {
+
+    // printf("Line %i:", line);
+
+    // for (cell = 0; cell < 9; ++cell)
+      // cout << field[line][cell] << " ";
+
+    // cout << endl;
+  // }
+// }
