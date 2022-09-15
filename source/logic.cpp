@@ -1,3 +1,5 @@
+#include "headers/mainStruts.h"
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -56,7 +58,7 @@ int checkFreeSpace(void) {
 
     /* printf("\nLine %i:", y); */
     // if cell = 0 (free space) -> ++ counter.
-    for (x = 0; x < 9; ++x)
+for (x = 0; x < 9; ++x)
       if (!field[y][x]) {
         freeSpace[y].push_back(x);
         ++counter;
@@ -70,6 +72,47 @@ int checkFreeSpace(void) {
     return 0;
   else
     return 1;
+}
+
+bool wayIsExists(pointField start, pointField end) {
+    // Return true if between points exist linear of way.
+
+    int i;
+    int x, y, step;
+
+    x = end.string - start.string;
+    y = end.column - start.column;
+
+    if (!x) {
+
+        step = (y > 0) ? -1 : 1;    // setup vector of moving.
+
+        while(y) {
+
+            i = start.column + y;
+            if (field[start.string][i])
+                return false;
+
+            y += step;
+        }
+        return true;
+
+    } else if (!y) {
+
+        step = (x > 0) ? -1 : 1;    // setup vector of moving.
+
+        while(x) {
+
+            i = start.string + x;
+            if (field[i][end.column])
+                return false;
+
+            x += step;
+        }
+        return true;
+    }
+
+    return false;
 }
 
 void randomPutStar(void) {
@@ -141,11 +184,6 @@ int schMultiStars(int count) {
   int lastStar; // last color of star (for "if").
 }
 
-
-void moveStar(int *star, int *place) {
-  *place = *star;
-  *star = 0;
-}
 
 bool isFreeWayReplace(int starX, int starY, int placeX, int placeY) {
   // Return true & move star in target place if way is free.

@@ -1,5 +1,6 @@
 #include "headers/gui_drawing.hpp"
 #include "headers/gui_loader.hpp"
+#include "headers/mainStruts.h"
 
 #include <SDL2/SDL.h>
 
@@ -32,25 +33,30 @@ pair<int, int> centerObj(int w, int h) {
   return {center[0] - w / 2, center[1] - w / 2};
 }
 
-int *idStarFromCoords(int coordX, int coordY) {
+pointField coordsStarUnderCursor(int coordX, int coordY) {
+
   // Return coords of start pos. star.
 
   int string, cell;
+  pointField coordsStar;
+  coordsStar.string = -1;
 
   if ((coordX >= Rect_field.x) && (coordX <= Rect_field.x + Rect_field.w) &&
       (coordY >= Rect_field.y) && (coordY <= Rect_field.y + Rect_field.h)) {
 
     string = (coordY - Rect_field.y) / 60;
     cell = (coordX - Rect_field.x) / 60;
-    cout << "String / cell: " << string << " / " << cell << endl;
 
-    return &field[string][cell];
-    // return nullptr;
+    coordsStar.string = string;
+    coordsStar.column = cell;
+    coordsStar.color = field[string][cell];
 
-  } else {
-    cout << "Mouse point not in field." << endl;
-    return nullptr;
-  }
+//    cout << "String / cell: " << string << " / " << cell << endl;
+
+  } else
+        cout << "Mouse point not in field." << endl;
+
+    return coordsStar;
 }
 
 void getXY(int coordX, int coordY) {

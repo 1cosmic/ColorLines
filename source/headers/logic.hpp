@@ -3,11 +3,15 @@
 #ifndef _H_LOGIC
 #define _H_LOGIC
 
+#include "mainStruts.h"
+
 void initField(void); // init field.
 
 void destroyLogic(void); // destroy all logic dynamic blocks.
 
 int checkFreeSpace(void); // check free space in field.
+
+bool wayIsExists(pointField start, pointField end);
 
 void randomColors(void); // create list random colors.
 

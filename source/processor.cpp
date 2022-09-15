@@ -8,11 +8,15 @@
 
 using namespace std;
 
+pointField lastStar{0, 0, 0};
+
 bool processor(SDL_Event event) {
   // Processor event.
 
   int x, y;     // for mouse detection.
-  int *curStar; // current selected star.
+  pointField curStar; // current selected star.
+
+
 
   switch (event.type) {
 
@@ -28,11 +32,27 @@ bool processor(SDL_Event event) {
 
   // If mouse click:
   case SDL_MOUSEBUTTONDOWN:
-    SDL_GetMouseState(&x, &y);
 
-    curStar = idStarFromCoords(x, y);
-    if (curStar != nullptr) {
-      cout << "Mouse clicked. Star color: " << *curStar << endl;
+    SDL_GetMouseState(&x, &y);
+    curStar = coordsStarUnderCursor(x, y);
+
+    // If star is celected:
+    if (curStar.string >= 0) {
+
+        // Set up first star:
+        if (!lastStar.color)
+            lastStar = curStar;
+
+        // If curStar is second star, check of exists the way.
+        else {
+
+//          cout << "Target the second star. Color: " << curStar.color << endl;
+            cout << "Check free way... " << wayIsExists(lastStar, curStar) << endl;
+            lastStar.color = 0;
+            return true;
+        }
+
+      cout << "Target fist star. Color: " << curStar.color << endl;
     }
 
     return true;

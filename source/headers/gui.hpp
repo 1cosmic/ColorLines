@@ -3,6 +3,9 @@
 #ifndef _H_GUI
 #define _H_GUI
 
+#include <vector>
+#include "mainStruts.h"
+
 // init main object SDL.
 bool initGame(void);
 
@@ -16,5 +19,5 @@ bool showMain(void);
 void display_stars();
 
 // Return star from click of mouse.
-int *idStarFromCoords(int coordX, int coordY);
+pointField coordsStarUnderCursor(int coordX, int coordY);
 #endif // !_H_GUI
