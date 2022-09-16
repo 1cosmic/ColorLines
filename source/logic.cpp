@@ -83,6 +83,9 @@ bool wayIsExists(pointField start, pointField end) {
     x = end.string - start.string;
     y = end.column - start.column;
 
+    if (!x && !y)
+        return false;
+
     if (!x) {
 
         step = (y > 0) ? -1 : 1;    // setup vector of moving.
@@ -113,6 +116,14 @@ bool wayIsExists(pointField start, pointField end) {
     }
 
     return false;
+}
+
+void swapStar(pointField last, pointField current) {
+    // Swap star into new place.
+
+    int *color = &field[last.string][last.column];
+    field[current.string][current.column] = *color;
+    *color = 0;
 }
 
 void randomPutStar(void) {

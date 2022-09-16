@@ -15,6 +15,7 @@ bool processor(SDL_Event event) {
 
   int x, y;     // for mouse detection.
   pointField curStar; // current selected star.
+  bool wayExists;
 
 
 
@@ -47,9 +48,32 @@ bool processor(SDL_Event event) {
         else {
 
 //          cout << "Target the second star. Color: " << curStar.color << endl;
-            cout << "Check free way... " << wayIsExists(lastStar, curStar) << endl;
+            wayExists = wayIsExists(lastStar, curStar);
+            cout << "Check free way... " << wayExists << endl;
+
+            // If free way - swap stars into the place.
+            if (wayExists) {
+                swapStar(lastStar, curStar);
+
+                // Check free space in field.
+                if (checkFreeSpace()) {
+                    showMain();
+                    randomColors();  // create list random colors.
+                    randomPutStar(); // put color from random color-list.
+                    display_stars(); // display all changes.
+                } else {
+                    cout << "Field is full." << endl;
+                    return false;
+                }
+            }
+
             lastStar.color = 0;
             return true;
+
+            /* TODO:
+             * 1. Добавить анимацию движения звезды, если путь существует.
+             * 2. Добавить перемещение айдишников звёзд в field.
+             */
         }
 
       cout << "Target fist star. Color: " << curStar.color << endl;
