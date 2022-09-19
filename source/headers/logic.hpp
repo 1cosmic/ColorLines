@@ -13,7 +13,9 @@ int checkFreeSpace(void); // check free space in field.
 
 bool wayIsExists(pointField start, pointField end);
 
-void swapStar(pointField last, pointField current);
+void swapStar(pointField current);
+
+void clearStar(pointField star);
 
 void randomColors(void); // create list random colors.
 

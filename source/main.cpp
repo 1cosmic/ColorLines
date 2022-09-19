@@ -39,6 +39,10 @@ int main() {
       SDL_Delay(FPS - SDL_GetTicks() + _FPS_Timer);
     }
     _FPS_Timer = SDL_GetTicks();
+
+    // Cycle animate.
+    showMain();
+    display_stars();
   }
 
   destroyGame();  // destroy SDL object.

@@ -8,6 +8,7 @@
 #include <exception>
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 #define SCR_W 1280
 #define SCR_H 720
@@ -59,9 +60,15 @@ pointField coordsStarUnderCursor(int coordX, int coordY) {
     return coordsStar;
 }
 
-void getXY(int coordX, int coordY) {
+coords getXY(int coordX, int coordY) {
+    // Return coords of star into the field.
 
+    coords starXY;
 
+    starXY.x = Rect_field.x + 60 * coordX;
+    starXY.y = Rect_field.y + 60 * coordY;
+
+    return starXY;
 }
 
 // ============================================================
@@ -186,4 +193,36 @@ void display_stars() {
       }
 
   SDL_RenderPresent(render);
+}
+
+void moveStar(pointField start, pointField end) {
+    // Draw to move of star into the field surface.
+
+    int deltaY = (end.string - start.string) * 60;
+    int deltaX = (end.column - start.column) * 60;
+
+    int step = 10;
+    if (deltaX < 0 || deltaY < 0)
+        step *= -1;
+
+    SDL_Rect movingStar;
+    movingStar = Rect_cells[start.string][start.column];
+
+    int i = 0;
+    int k = abs((deltaX != 0) ? deltaX : deltaY);
+    k /= abs(step);
+
+    while (i++ < k) {
+
+        if (deltaX)
+            movingStar.x += step;
+        else if (deltaY)
+            movingStar.y += step;
+
+        showMain();
+        SDL_RenderCopy(render, get_star(start.color), NULL, &movingStar);
+        display_stars();
+
+        SDL_Delay(20);
+    }
 }

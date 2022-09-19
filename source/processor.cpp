@@ -53,14 +53,16 @@ bool processor(SDL_Event event) {
 
             // If free way - swap stars into the place.
             if (wayExists) {
-                swapStar(lastStar, curStar);
+
+                // Move star into the field.
+                clearStar(lastStar);
+                moveStar(lastStar, curStar);
+                swapStar(curStar);
 
                 // Check free space in field.
                 if (checkFreeSpace()) {
-                    showMain();
                     randomColors();  // create list random colors.
                     randomPutStar(); // put color from random color-list.
-                    display_stars(); // display all changes.
                 } else {
                     cout << "Field is full." << endl;
                     return false;
@@ -71,8 +73,8 @@ bool processor(SDL_Event event) {
             return true;
 
             /* TODO:
-             * 1. Добавить анимацию движения звезды, если путь существует.
-             * 2. Добавить перемещение айдишников звёзд в field.
+             * ДОДЕЛАТЬ! 1. Добавить анимацию движения звезды, если путь существует.
+             * +++ 2. Добавить перемещение айдишников звёзд в field.
              */
         }
 
@@ -98,7 +100,7 @@ bool processor(SDL_Event event) {
       if (checkFreeSpace()) {
         randomColors();  // create list random colors.
         randomPutStar(); // put color from random color-list.
-        display_stars(); // display all changes.
+//        display_stars(); // display all changes.
       } else {
         cout << "Field is full." << endl;
         return false;

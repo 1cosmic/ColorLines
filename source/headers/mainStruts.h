@@ -11,4 +11,8 @@ struct pointField {
     int color;
 };
 
+struct coords {
+    int x, y;
+};
+
 #endif //COLORLINES_MAINSTRUTS_H

@@ -18,6 +18,8 @@ bool showMain(void);
 // Display stars & his changes.
 void display_stars();
 
+void moveStar(pointField start, pointField end);
+
 // Return star from click of mouse.
 pointField coordsStarUnderCursor(int coordX, int coordY);
 #endif // !_H_GUI

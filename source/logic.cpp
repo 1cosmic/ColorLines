@@ -9,6 +9,7 @@
 using namespace std;
 
 int field[9][9];           // main field.
+int localColorStar = 0;    // last saved color of star.
 vector<int> freeSpace[9];  // field of free space.
 vector<int[4]> multiStars; // safe y,x, color, count of multiplie stars.
 
@@ -118,12 +119,15 @@ bool wayIsExists(pointField start, pointField end) {
     return false;
 }
 
-void swapStar(pointField last, pointField current) {
+void swapStar(pointField current) {
     // Swap star into new place.
 
-    int *color = &field[last.string][last.column];
-    field[current.string][current.column] = *color;
-    *color = 0;
+    field[current.string][current.column] = localColorStar;
+}
+
+void clearStar(pointField star) {
+    localColorStar = field[star.string][star.column];
+    field[star.string][star.column] = 0;
 }
 
 void randomPutStar(void) {
