@@ -5,6 +5,7 @@
 
 #include <SDL2/SDL.h>
 
+bool isMove;
 bool processor(SDL_Event event);
 
 #endif // !_H_PROCESSOR

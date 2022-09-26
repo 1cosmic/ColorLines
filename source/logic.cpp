@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <time.h>
+#include <valarray>
 
 using namespace std;
 
@@ -188,65 +189,94 @@ void randomPutStar(void) {
   freeLines.clear();
 }
 
-int schMultiStars(int count) {
-  // Search of multiplie stars in one line.
+bool clearMultiLine(int multiCount, int *score) {
+  // Search of multiplie stars in one line / column / diagonal.
 
-  // TO-DO: WRITE THIS FUNC. FOR SEARCH MULTIPLIE STAR.
+  int i, i2;
+  int countStr, countColumn;            // counter of multi color.
+  int multiColorStr, multiColorColumn;  // last multi color.
+  int *pColorStr, *pColorColumn;        // pointer in field of colors.
 
-  int line; // index of line.
-  int cell; // index of star.
+  bool isCleaned = false;
 
-  int lastStar; // last color of star (for "if").
+  for (i = 0; i < 9; ++i) {
+
+      // Set up first values.
+      countStr = 1;
+      countColumn = 1;
+
+      // Set first star as last multicolor.
+      multiColorStr = field[i][0];
+      multiColorColumn = field[0][i];
+
+      // TODO:
+      // Удаляется последняя ячейка, в которой может и не быть мультицвета.
+
+
+
+      for (i2 = 1; i2 < 9; ++i2) {
+          pColorStr = &field[i][i2];
+          pColorColumn = &field[i2][i];
+
+          // If multicolor - line:
+          if (*pColorStr == multiColorStr && *pColorStr && i2 != 8) {
+              ++countStr;
+
+          // If multicolor is break:
+          } else {
+              int start = i2 -1;
+
+              if (*pColorStr == multiColorStr) {
+                  start = i2;
+                  ++countStr;
+              }
+
+              // If multicolor count is >= main, clear last countStr star:
+              if (countStr >= multiCount) {
+
+                  for (int cell = start; cell >= i2 - countStr; --cell) {
+                      field[i][cell] = 0;
+                  }
+
+                  *score += (countStr > multiCount) ? pow(countStr, 2) : countStr;
+                  isCleaned = true;
+              }
+
+              // If else, set up current color is multi & refresh here of counter.
+              multiColorStr = *pColorStr;
+              countStr = 1;
+          }
+
+          // If multicolor - column:
+          if (*pColorColumn == multiColorColumn && *pColorColumn && i2 != 8) {
+              ++countColumn;
+
+          // If multicolor is break:
+          } else {
+              int start = i2 -1;
+
+              if (*pColorColumn == multiColorColumn) {
+                  start = i2;
+                  ++countColumn;
+              }
+
+              // If multicolor count is >= main, clear last countStr star:
+              if (countColumn >= multiCount) {
+
+                  for (int cell = start; cell >= i2 - countColumn; --cell) {
+                      field[cell][i] = 0;
+                  }
+
+                  *score += (countColumn > multiCount) ? pow(countColumn, 2) : countColumn;
+                  isCleaned = true;
+              }
+
+              // If else, set up current color is multi & refresh here of counter.
+              multiColorColumn = *pColorColumn;
+              countColumn = 1;
+          }
+      }
+  }
+
+  return isCleaned;
 }
-
-
-bool isFreeWayReplace(int starX, int starY, int placeX, int placeY) {
-  // Return true & move star in target place if way is free.
-
-  if (starX == placeX || starY == placeY) {
-      // main algorythm.
-
-      /* Пожертвовав принципом DRY!
-         Функция проверяет, свободны ли ячейки на пути от выбранной звезды до цели.
-         Алгоритм прост: увеличить или уменить на единицу координату и проверить,
-         свободна ли ячейка.
-         Много Ифов, скажется ли на скорости?
-      */
-      while (starX != placeX && starY != placeY) {
-          if (starX > placeX)
-            starX--;
-          else if (starX < placeX)
-            starX++;
-
-          if (starY > placeY)
-            starY--;
-          else if (starY < placeY)
-            starY++;
-
-          if (field[starX][starY])
-            return false;
-        }
-
-      return true;
-
-    } else {
-      return false;
-    }
-}
-
-
-// void printField(void) {
-  // // print field in terminal-read-mode.
-
-  // int line, cell;
-
-  // for (line = 0; line < 9; ++line) {
-
-    // printf("Line %i:", line);
-
-    // for (cell = 0; cell < 9; ++cell)
-      // cout << field[line][cell] << " ";
-
-    // cout << endl;
-  // }
-// }

@@ -138,7 +138,7 @@ void destroyGame(void) {
   // Destroy all objects & close window.
 
   if (cleanTexture())
-    cout << "All texture was delete." << endl;
+    cout << endl << "All texture was delete." << endl;
   else
     cout << "Texture don`t removed!" << endl;
 
@@ -201,7 +201,7 @@ void moveStar(pointField start, pointField end) {
     int deltaY = (end.string - start.string) * 60;
     int deltaX = (end.column - start.column) * 60;
 
-    int step = 10;
+    int step = 20;
     if (deltaX < 0 || deltaY < 0)
         step *= -1;
 

@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 pointField lastStar{0, 0, 0};
 
 bool processor(SDL_Event event) {
@@ -17,7 +18,7 @@ bool processor(SDL_Event event) {
   pointField curStar; // current selected star.
   bool wayExists;
 
-
+  extern bool isMove;
 
   switch (event.type) {
 
@@ -49,7 +50,7 @@ bool processor(SDL_Event event) {
 
 //          cout << "Target the second star. Color: " << curStar.color << endl;
             wayExists = wayIsExists(lastStar, curStar);
-            cout << "Check free way... " << wayExists << endl;
+//            cout << "Check free way... " << wayExists << endl;
 
             // If free way - swap stars into the place.
             if (wayExists) {
@@ -57,28 +58,18 @@ bool processor(SDL_Event event) {
                 // Move star into the field.
                 clearStar(lastStar);
                 moveStar(lastStar, curStar);
-                swapStar(curStar);
 
-                // Check free space in field.
-                if (checkFreeSpace()) {
-                    randomColors();  // create list random colors.
-                    randomPutStar(); // put color from random color-list.
-                } else {
-                    cout << "Field is full." << endl;
-                    return false;
-                }
+                swapStar(curStar);
+                isMove = true;
+
             }
 
             lastStar.color = 0;
             return true;
 
-            /* TODO:
-             * ДОДЕЛАТЬ! 1. Добавить анимацию движения звезды, если путь существует.
-             * +++ 2. Добавить перемещение айдишников звёзд в field.
-             */
         }
 
-      cout << "Target fist star. Color: " << curStar.color << endl;
+//      cout << "Target fist star. Color: " << curStar.color << endl;
     }
 
     return true;
@@ -106,7 +97,7 @@ bool processor(SDL_Event event) {
         return false;
       }
 
-      cout << "Space was pressed." << endl;
+      cout << "Magic Space was pressed." << endl;
     }
 
   default:
